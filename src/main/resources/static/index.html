@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+  <meta name="description" content="AlgoLens explains DSA complexity, patterns, and better approaches.">
+  <title>AlgoLens — See the better solution</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css?v=20260719-8">
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">A</span><span>AlgoLens</span><span class="beta">BETA</span></a>
+    <nav><a class="active" href="#workspace">Workspace</a><a href="#patterns">Pattern library</a><a href="#history">History</a></nav>
+    <div class="top-actions"><span class="streak">✦ <strong>12</strong> day streak</span><button class="profile" id="profileBtn" aria-label="Open account"><span>SK</span></button></div>
+  </header>
+
+  <main id="workspace">
+    <section class="hero">
+      <div><div class="eyebrow"><span></span> YOUR ALGORITHM, EXPLAINED</div><h1>Don’t just solve it.<br><em>Understand the better way.</em></h1><p>Paste your solution. AlgoLens reveals its true cost, the patterns hiding inside, and the route to an interview-ready answer.</p></div>
+      <div class="hero-stat"><span>ANALYSES THIS WEEK</span><strong>24</strong><small>↗ 18% from last week</small></div>
+    </section>
+
+    <section class="workbench">
+      <div class="editor-panel">
+        <div class="panel-head"><div class="problem"><span class="problem-num">01</span><div><strong>Solution workspace</strong><span>Analyze any DSA solution</span></div></div><div class="language"><span class="language-dot"></span><span id="languageLabel">JAVA</span><small>Locked to profile</small></div></div>
+        <div class="editor-tabs"><button class="selected">Solution.java</button><span>● Saved</span></div>
+        <div class="code-wrap"><pre class="lines" aria-hidden="true">1</pre><textarea id="codeInput" spellcheck="false" placeholder="Paste or write your solution code here..." aria-label="Your solution code"></textarea></div>
+        <div class="editor-foot"><span>⌘ Enter to analyze</span><button id="analyzeBtn"><span>✦</span> Analyze solution <kbd>⌘ ↵</kbd></button></div>
+      </div>
+
+      <aside class="insights" id="results">
+        <div class="insights-head"><div><span class="pulse"></span><strong>Analysis complete</strong></div><span class="score">92 / 100</span></div>
+        <div class="complexity-grid"><div><span>TIME COMPLEXITY</span><strong id="timeValue">O(n)</strong><small id="timeLabel">Linear time</small></div><div><span>SPACE COMPLEXITY</span><strong id="spaceValue">O(n)</strong><small id="spaceLabel">Auxiliary storage</small></div></div>
+        <div class="chart-card"><div class="chart-top"><span>GROWTH VISUALIZER</span><div class="legend"><i></i>Your code <i></i>Brute force</div></div><canvas id="complexityChart" width="560" height="190" aria-label="Complexity growth chart"></canvas><div class="axis"><span>Input size (n)</span><span>Operations</span></div></div>
+        <div class="verdict"><span>✦</span><div><strong>Efficiency verdict</strong><p id="verdictText">Excellent work. Your hash map removes the nested scan and reaches the optimal time complexity for this problem.</p></div></div>
+        <div class="signals" id="signals"><span>Single-pass iteration detected</span><span>Hash lookup trades memory for speed</span></div>
+      </aside>
+    </section>
+
+    <section class="patterns-section" id="patterns">
+      <div class="section-title"><div><span class="section-no">02</span><div><span>PATTERN INTELLIGENCE</span><h2>Three ways to think about this problem</h2></div></div><p>Compare trade-offs. Click any pattern to study the idea and its code.</p></div>
+      <div class="pattern-layout">
+        <div class="pattern-list" id="patternList">
+          <button class="pattern-card muted" data-pattern="brute"><span class="pattern-icon">×²</span><div><span class="tag">BASELINE</span><h3>Brute force</h3><p>Check every possible pair with nested loops.</p><small>O(n²) time · O(1) space</small></div><b>›</b></button>
+          <button class="pattern-card active" data-pattern="hashing"><span class="pattern-icon">#</span><div><span class="tag recommended">RECOMMENDED</span><h3>Hash Map</h3><p>Remember values already seen for instant lookup.</p><small>O(n) time · O(n) space</small></div><b>›</b></button>
+          <button class="pattern-card" data-pattern="two-pointers"><span class="pattern-icon">⇆</span><div><span class="tag alternative">ALTERNATIVE</span><h3>Two Pointers</h3><p>Sort first, then move inward from both ends.</p><small>O(n log n) time · O(1) space*</small></div><b>›</b></button>
+        </div>
+        <div class="pattern-detail"><div class="detail-head"><div><span id="detailTag">RECOMMENDED APPROACH</span><h3 id="detailName">Hash Map — one pass</h3></div><span id="detailComplexity">O(n) time</span></div><div class="why"><span>WHY IT WORKS</span><p id="detailReason">At each number, ask: “Have I already seen its complement?” A hash map answers in constant time, removing the second loop entirely.</p></div><pre><code id="patternCode">Map&lt;Integer, Integer&gt; seen = new HashMap&lt;&gt;();
+for (int i = 0; i &lt; nums.length; i++) {
+    int need = target - nums[i];
+    if (seen.containsKey(need))
+        return new int[] {seen.get(need), i};
+    seen.put(nums[i], i);
+}</code></pre><div class="tradeoff"><span>TRADE-OFF</span><p>Uses O(n) extra memory to reduce runtime from quadratic to linear.</p></div></div>
+      </div>
+    </section>
+
+    <section class="history-section" id="history"><div class="section-title"><div><span class="section-no">03</span><div><span>YOUR PROGRESS</span><h2>Recent analyses</h2></div></div></div><div class="history-row"><span class="history-icon">#</span><div><strong>Two Sum</strong><small>Hash Map · Java</small></div><span>O(n)</span><b>92</b><time>Just now</time></div></section>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+  <div class="modal-backdrop" id="authModal" hidden><section class="auth-modal"><button type="button" class="close" id="closeModal" data-close-auth aria-label="Close">×</button><div class="auth-brand"><span class="brand-mark">A</span><h2>Start seeing the better way.</h2><p>Your account is permanently paired with one coding language, keeping every explanation focused.</p></div><div class="auth-tabs"><button class="active" data-mode="register">Create account</button><button data-mode="login">Sign in</button></div><form id="authForm"><label id="nameField">Your name<input id="authName" placeholder="Sankar" required></label><label>Email<input id="authEmail" type="email" placeholder="you@example.com" required></label><label>Password<input id="authPassword" type="password" placeholder="At least 8 characters" minlength="8" required></label><fieldset id="languageField"><legend>Choose your account language</legend><div class="language-options"><label><input type="radio" name="lang" value="JAVA" checked><span>Java</span></label><label><input type="radio" name="lang" value="CPP"><span>C++</span></label><label><input type="radio" name="lang" value="PYTHON"><span>Python</span></label></div><small>This cannot be changed later. Create another account to learn in another language.</small></fieldset><button class="submit-auth" type="submit">Create my workspace →</button></form></section></div>
+  <footer><a class="brand" href="#"><span class="brand-mark">A</span><span>AlgoLens</span></a><p>Built for people who want to understand, not memorize.</p><span>Java · C++ · Python</span></footer>
+  <script src="/app.js?v=20260719-8"></script>
+</body></html>
